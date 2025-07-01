@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acesso - Nivelando</title>
+    {% load static %} {# Carrega a tag 'static' para usar arquivos estáticos #}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="main-container">
+        <div class="left-panel">
+            <header class="logo-section">
+                <span class="logo-n">N</span>
+                <span class="logo-text">Nivelando</span>
+                <span class="logo-a">A</span>
+                <div class="logo-a-design">
+                    <div class="square"></div>
+                    <div class="dot"></div>
+                </div>
+                <p class="subtitle">SISTEMA INTEGRADO DE DESEMPENHO ESTUDANTIL</p>
+            </header>
+
+            <form method="post" class="login-form" action="{% url 'login' %}">
+                {% csrf_token %} {# Tag de segurança obrigatória em formulários Django #}
+
+                <h2>Login</h2>
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                <div class="input-group">
+                    <label for="{{ form.username.id_for_label }}"><i class="fas fa-user"></i> Usuário:</label>
+                    {{ form.username }}
+                </div>
+
+                <div class="input-group">
+                    <label for="{{ form.password.id_for_label }}"><i class="fas fa-lock"></i> Senha:</label>
+                    {{ form.password }}
+                </div>
+
+                <div class="input-group">
+                    <label for="{{ form.profile_type.id_for_label }}"><i class="fas fa-user-tag"></i> Perfil:</label>
+                    {{ form.profile_type }}
+                </div>
+
+                <button type="button" class="btn-govbr">
+                    <img src="{% static 'img/govbr_logo.png' %}" alt="Logo Gov.br" class="govbr-logo">
+                    Entrar com Gov.br
+                </button>
+
+                <div class="links-row">
+                    <a href="#" class="forgot-password">Esqueceu sua senha?</a>
+                    <a href="{% url 'cadastro' %}" class="register-link">Cadastra-se</a>
+                </div>
+
+                <button type="submit" class="btn-confirmar">Confirmar</button>
+            </form>
+
+            <p class="problem-access">Problemas com o acesso?</p>
+        </div>
+
+        <div class="right-panel">
+            <img src="{% static 'img/network_illustration.png' %}" alt="Ilustração de Rede" class="network-illustration">
+        </div>
+    </div>
+</body>
+</html>
