@@ -40,7 +40,7 @@ Para configurar e rodar o projeto localmente, siga os passos abaixo:
 
 ## ⚙️ Configuração e Instalação
 
-### 1. Clonar o Repositório
+###  Passo a passo para configurar e instalar na sua maquina
 
 ```bash
 git clone <Link para o Repositório>
