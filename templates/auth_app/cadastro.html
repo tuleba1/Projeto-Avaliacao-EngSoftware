@@ -37,7 +37,8 @@
 
                 <div class="input-group">
                     <label for="{{ form.username.id_for_label }}"><i class="fas fa-user"></i> Nome de Usuário:</label>
-                    {{ form.username }} {# Isso renderiza o <input type="text" ...> #}
+                    {{ form.username }}
+                    {# Exibe erros específicos do campo username #}
                     {% if form.username.errors %}<div class="form-error">{{ form.username.errors }}</div>{% endif %}
                 </div>
 

@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required # <-- Esta linha
 from .forms import CustomAuthenticationForm, CustomUserCreationForm # <-- E esta linha
 
+
 def login_view(request):
     if request.method == 'POST':
         form = CustomAuthenticationForm(request, data=request.POST)
@@ -67,6 +68,29 @@ def logout_view(request):
     messages.info(request, "Você foi desconectado(a).")
     return redirect('login')
 
+
+
+def temp_dashboard_view(request, role='aluno'): # <-- O NOME DA FUNÇÃO DEVE ESTAR EXATO
+    """
+    *** TEMPORÁRIO: View para exibir o dashboard apenas para visualização/design. ***
+    Não requer autenticação e pode ser acessada diretamente.
+    Recebe um 'role' para simular diferentes dashboards.
+    """
+    template_map = {
+        'aluno': 'auth_app/dashboard_aluno.html',
+        'professor': 'auth_app/dashboard_professor.html',
+        'diretor': 'auth_app/dashboard_diretor.html',
+    }
+    template_name = template_map.get(role, 'auth_app/dashboard_aluno.html')
+
+    user_mock = type('UserMock', (object,), {
+        'username': f"Usuário {role.capitalize()}",
+        'is_authenticated': True
+    })()
+
+    messages.info(request, f"Você está visualizando o dashboard de {role.capitalize()} (modo de visualização temporário).")
+
+    return render(request, template_name, {'user': user_mock, 'role': role.capitalize()})
 
 @login_required
 def render_dashboard(request, template_name, role_name):
