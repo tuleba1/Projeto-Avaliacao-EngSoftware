@@ -43,8 +43,6 @@ Para configurar e rodar o projeto localmente, siga os passos abaixo:
 ###  Passo a passo para configurar e instalar na sua maquina
 
 
-
-CLONAR REPOSITÓRIO
 ```bash
 git clone <Link para o Repositório>
 cd Projeto-Avaliacao-EngSoftware
