@@ -1,0 +1,359 @@
+/* Projeto-Avaliacao-EngSoftware/static/css/dashboard_style.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --primary-text-color: #1A202C; /* Cor para títulos, labels */
+    --secondary-text-color: #6A7280; /* Cor para subtítulos, links secundários */
+    --accent-color: #4C51BF; /* Cor de destaque (azul escuro) */
+    --light-blue-accent: #7890EA; /* Azul mais claro para alguns ícones/elementos */
+    --dark-red-sidebar: #4A0201; /* Cor escura para a sidebar */
+    --sidebar-text-color: #E2E8F0; /* Cor do texto no sidebar */
+    --sidebar-active-bg: #800201; /* Cor de fundo para item ativo do menu */
+    --white: #FFFFFF;
+    --light-gray-bg: #F7FAFC; /* Fundo claro do conteúdo principal */
+    --border-color: #EDF2F7;
+    --shadow-color: rgba(0, 0, 0, 0.05);
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--light-gray-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: var(--primary-text-color);
+}
+
+.dashboard-container {
+    display: flex;
+    width: 100%;
+    max-width: 1400px;
+    height: 95vh;
+    min-height: 700px;
+    background-color: var(--white);
+    border-radius: 10px;
+    box-shadow: 0 10px 30px var(--shadow-color);
+    overflow: hidden; /* Garante que o conteúdo não vaze */
+}
+
+/* Sidebar (Menu Lateral) */
+.sidebar {
+    width: 250px;
+    background-color: var(--dark-red-sidebar);
+    color: var(--sidebar-text-color);
+    display: flex;
+    flex-direction: column;
+    padding: 30px 0;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+}
+
+.sidebar-logo-section {
+    display: flex;
+    align-items: baseline; /* Alinha o texto do logo na linha de base */
+    padding: 0 20px 30px 20px;
+    position: relative; /* Para posicionar o A estilizado */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 20px;
+}
+
+/* Estilos dos caracteres Nivelando A */
+.sidebar-logo-section .logo-n {
+    font-size: 2.5em;
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1; /* Ajusta a altura da linha para o N */
+}
+
+.sidebar-logo-section .logo-text {
+    font-size: 1.5em;
+    font-weight: 600;
+    color: var(--white);
+    margin-left: 5px;
+}
+
+.sidebar-logo-section .logo-a {
+    font-size: 2.5em;
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1; /* Ajusta a altura da linha para o A */
+    margin-left: 5px;
+    position: relative; /* Para o design do A */
+}
+
+/* Estilo do quadrado e ponto ao lado do "A" */
+.sidebar-logo-section .logo-a-design {
+    position: absolute;
+    top: 5px; /* Ajuste conforme necessário */
+    right: 15px; /* Ajuste conforme necessário */
+    width: 20px;
+    height: 20px;
+    border: 2px solid var(--white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sidebar-logo-section .logo-a-design .square {
+    width: 10px;
+    height: 10px;
+    border: 1px solid var(--white);
+}
+
+.sidebar-logo-section .logo-a-design .dot {
+    width: 4px;
+    height: 4px;
+    background-color: var(--white);
+    border-radius: 50%;
+    position: absolute;
+    bottom: 3px; /* Ajuste conforme necessário */
+    right: 3px; /* Ajuste conforme necessário */
+}
+
+
+.sidebar-nav {
+    flex-grow: 1; /* Faz a navegação ocupar o espaço restante */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Empurra bottom-nav para baixo */
+}
+
+.sidebar-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-nav li a {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    color: var(--sidebar-text-color);
+    text-decoration: none;
+    font-size: 1em;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.sidebar-nav li a i {
+    margin-right: 15px;
+    font-size: 1.1em;
+}
+
+.sidebar-nav li a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-nav li a.active {
+    background-color: var(--sidebar-active-bg);
+    font-weight: 600;
+}
+
+/* Main Content (Conteúdo Principal) */
+.main-content {
+    flex-grow: 1; /* Ocupa o restante do espaço horizontal */
+    background-color: var(--light-gray-bg);
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto; /* Adiciona scroll se o conteúdo for muito longo */
+}
+
+.top-header {
+    display: flex;
+    justify-content: flex-end; /* Alinha o conteúdo à direita */
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-avatar {
+    font-size: 3em;
+    color: var(--accent-color); /* Cor do ícone de avatar */
+}
+
+.user-details p {
+    margin: 0;
+    line-height: 1.3;
+}
+
+.user-details .greeting {
+    font-size: 1.1em;
+    font-weight: 500;
+    color: var(--primary-text-color);
+}
+
+.user-details .matricula {
+    font-size: 0.9em;
+    color: var(--secondary-text-color);
+}
+
+.intro-section {
+    margin-bottom: 40px;
+}
+
+.intro-section h1 {
+    font-size: 2.2em;
+    font-weight: 700;
+    color: var(--primary-text-color);
+    margin-bottom: 15px;
+}
+
+.intro-section p {
+    font-size: 1em;
+    line-height: 1.6;
+    color: var(--secondary-text-color);
+    max-width: 800px; /* Limita a largura do texto para melhor legibilidade */
+}
+
+.features-section h2 {
+    font-size: 1.8em;
+    font-weight: 600;
+    color: var(--primary-text-color);
+    margin-bottom: 30px;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); /* Layout responsivo em grade */
+    gap: 30px;
+}
+
+.feature-item {
+    background-color: var(--white);
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 5px 15px var(--shadow-color);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.feature-item .icon-box {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8em;
+    color: var(--white);
+}
+
+.feature-item .icon-box.blue {
+    background-color: var(--accent-color);
+}
+
+.feature-item .icon-box.light-blue {
+    background-color: var(--light-blue-accent);
+}
+
+.feature-item h3 {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: var(--primary-text-color);
+    margin: 0;
+    line-height: 1.4;
+}
+
+.feature-item p {
+    font-size: 0.9em;
+    color: var(--secondary-text-color);
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
+    .sidebar {
+        width: 200px;
+    }
+    .main-content {
+        padding: 30px;
+    }
+    .feature-grid {
+        grid-template-columns: 1fr; /* Coluna única em telas menores */
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-container {
+        flex-direction: column;
+        height: auto;
+        min-height: auto;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        padding: 20px 0;
+        flex-direction: row; /* Layout horizontal para a sidebar em telas pequenas */
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        position: sticky; /* Mantém a sidebar no topo ao rolar */
+        top: 0;
+        z-index: 1000;
+    }
+
+    .sidebar-logo-section {
+        padding: 0 20px;
+        border-bottom: none;
+        margin-bottom: 0;
+    }
+
+    .sidebar-nav {
+        flex-direction: row; /* Links de navegação em linha */
+        flex-wrap: wrap; /* Permite quebrar linha se não couberem */
+        justify-content: center;
+        gap: 10px; /* Espaçamento entre os links */
+        padding: 10px 20px;
+    }
+
+    .sidebar-nav ul {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .sidebar-nav li a {
+        padding: 10px 15px;
+        flex-direction: column; /* Ícone em cima, texto embaixo */
+        font-size: 0.8em;
+        text-align: center;
+    }
+
+    .sidebar-nav li a i {
+        margin-right: 0;
+        margin-bottom: 5px;
+        font-size: 1.2em;
+    }
+
+    .bottom-nav {
+        display: none; /* Esconde a navegação inferior em telas pequenas para economizar espaço */
+    }
+
+    .main-content {
+        padding: 20px;
+    }
+
+    .top-header {
+        justify-content: center; /* Centraliza info do usuário em telas pequenas */
+    }
+
+    .feature-item {
+        padding: 20px;
+    }
+}

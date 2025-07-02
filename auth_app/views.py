@@ -1,26 +1,19 @@
-from django.shortcuts import render
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from .forms import CustomAuthenticationForm
+from django.contrib.auth.decorators import login_required # <-- Esta linha
+from .forms import CustomAuthenticationForm, CustomUserCreationForm # <-- E esta linha
 
 def login_view(request):
-    """
-    Função de view para a tela de login.
-    Lida com a exibição do formulário e o processamento do login.
-    """
     if request.method == 'POST':
         form = CustomAuthenticationForm(request, data=request.POST)
         if form.is_valid():
             user = form.get_user()
-            profile_type = form.cleaned_data.get('profile_type', 'aluno') # Default para 'aluno'
+            profile_type = form.cleaned_data.get('profile_type', 'aluno')
 
             login(request, user)
             messages.success(request, f"Bem-vindo(a), {user.username}!")
 
-            # Lógica de redirecionamento baseada no perfil selecionado
-            # Você pode expandir isso com lógica de Role/Grupo real no futuro
             if profile_type == 'diretor':
                 return redirect('dashboard_diretor')
             elif profile_type == 'professor':
@@ -28,54 +21,66 @@ def login_view(request):
             elif profile_type == 'aluno':
                 return redirect('dashboard_aluno')
             else:
-                return redirect('home') # Fallback
+                return redirect('home')
         else:
             messages.error(request, "Usuário ou senha inválidos. Verifique suas credenciais e seu perfil.")
     else:
-        form = CustomAuthenticationForm() # Instancia um formulário vazio para requisições GET
+        form = CustomAuthenticationForm()
 
     return render(request, 'auth_app/login.html', {'form': form})
 
 
+
+def cadastro_view(request):
+    """
+    View para o cadastro de novos usuários.
+    Permite a criação de contas de usuário persistidas no banco de dados.
+    Os dados são "temporários" no sentido de que, para este ambiente de desenvolvimento,
+    o banco de dados SQLite pode ser facilmente resetado ou ignorado.
+    """
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()  # Salva o novo usuário no banco de dados (db.sqlite3)
+            login(request, user)  # Faz o login do novo usuário automaticamente
+            messages.success(request, f"Cadastro realizado com sucesso! Bem-vindo(a), {user.username}!")
+            # Redireciona o novo usuário para o dashboard do aluno como padrão
+            return redirect('dashboard_aluno')
+        else:
+            # Se o formulário não for válido, exibe mensagens de erro
+            # O Django fornece erros detalhados por campo e não de campo
+            for field, errors in form.errors.items():
+                for error in errors:
+                    if field == '__all__': # Erros não relacionados a campos específicos (ex: senhas não batem)
+                        messages.error(request, f"Erro: {error}")
+                    else:
+                        messages.error(request, f"Erro no campo '{field.replace('_', ' ').capitalize()}': {error}")
+            messages.error(request, "Por favor, corrija os erros no formulário de cadastro.")
+    else:
+        form = CustomUserCreationForm() # Instancia um formulário vazio para requisições GET
+
+    return render(request, 'auth_app/cadastro.html', {'form': form})
+
+
 def logout_view(request):
-    """
-    Função de view para realizar o logout do usuário.
-    """
     logout(request)
     messages.info(request, "Você foi desconectado(a).")
-    return redirect('login') # Redireciona para a tela de login
+    return redirect('login')
 
 
-@login_required # Garante que apenas usuários logados possam acessar
+@login_required
 def render_dashboard(request, template_name, role_name):
-    """
-    Função genérica para renderizar um dashboard.
-    Recebe o nome do template e o papel (role) como argumentos.
-    """
-    # Em um projeto real, você faria verificações de permissão aqui:
-    # if not request.user.has_perm(f'auth_app.can_access_{role_name}_dashboard'):
-    #     messages.error(request, "Você não tem permissão para acessar este painel.")
-    #     return redirect('home') # Ou para um dashboard permitido
-
+    # Lógica de permissão e renderização do dashboard
     return render(request, template_name, {'user': request.user, 'role': role_name.capitalize()})
 
 
 def home_page(request):
-    """
-    Função de view para a página inicial (raiz do site).
-    Redireciona para o dashboard apropriado se o usuário estiver logado.
-    Caso contrário, redireciona para a tela de login.
-    """
     if request.user.is_authenticated:
-        # Lógica simples para redirecionar com base em is_superuser ou um papel padrão
-        if request.user.is_superuser: # Exemplo: superusuário vai para dashboard diretor
+        if request.user.is_superuser:
             return redirect('dashboard_diretor')
-        else: # Outros usuários autenticados vão para dashboard aluno como padrão
+        else:
             return redirect('dashboard_aluno')
-    return redirect('login') # Se não estiver logado, vai para a tela de login
+    return redirect('login')
 
-# Apenas um placeholder para a tela de cadastro por enquanto
 def cadastro_view(request):
     return render(request, 'auth_app/cadastro.html')
-
-# Create your views here.

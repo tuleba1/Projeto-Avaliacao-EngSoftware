@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - Nivelando</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="main-container">
+        <div class="left-panel">
+            <header class="logo-section">
+                <span class="logo-n">N</span>
+                <span class="logo-text">Nivelando</span>
+                <span class="logo-a">A</span>
+                <div class="logo-a-design">
+                    <div class="square"></div>
+                    <div class="dot"></div>
+                </div>
+                <p class="subtitle">SISTEMA INTEGRADO DE DESEMPENHO ESTUDANTIL</p>
+            </header>
+
+            <form method="post" class="login-form" action="{% url 'cadastro' %}">
+                {% csrf_token %}
+
+                <h2>Cadastre-se</h2> {# Alterado de "Cadastro" para "Cadastre-se" #}
+                {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                <div class="input-group">
+                    <label for="{{ form.username.id_for_label }}"><i class="fas fa-user"></i> Nome de Usuário:</label>
+                    {{ form.username }} {# Isso renderiza o <input type="text" ...> #}
+                    {% if form.username.errors %}<div class="form-error">{{ form.username.errors }}</div>{% endif %}
+                </div>
+
+                <div class="input-group">
+                    <label for="{{ form.email.id_for_label }}"><i class="fas fa-envelope"></i> Email:</label>
+                    {{ form.email }}
+                    {# Exibe erros específicos do campo email #}
+                    {% if form.email.errors %}<div class="form-error">{{ form.email.errors }}</div>{% endif %}
+                </div>
+
+                <div class="input-group">
+                    <label for="{{ form.password.id_for_label }}"><i class="fas fa-lock"></i> Senha:</label>
+                    {{ form.password }}
+                    {# Exibe erros específicos do campo password #}
+                    {% if form.password.errors %}<div class="form-error">{{ form.password.errors }}</div>{% endif %}
+                </div>
+
+                <div class="input-group">
+                    <label for="{{ form.password2.id_for_label }}"><i class="fas fa-lock"></i> Confirme a Senha:</label>
+                    {{ form.password2 }}
+                    {# Exibe erros específicos do campo password2 #}
+                    {% if form.password2.errors %}<div class="form-error">{{ form.password2.errors }}</div>{% endif %}
+                </div>
+
+                {% if form.non_field_errors %}
+                    <div class="form-error">{{ form.non_field_errors }}</div>
+                {% endif %}
+
+                <div class="links-row">
+                    <a href="{% url 'login' %}" class="register-link">Já tem uma conta? Faça Login</a>
+                </div>
+
+                <button type="submit" class="btn-confirmar">Cadastrar</button>
+            </form>
+
+            <p class="problem-access">Precisa de ajuda para se cadastrar?</p>
+        </div>
+
+        <div class="right-panel">
+            <img src="{% static 'img/network_illustration.png' %}" alt="Ilustração de Rede" class="network-illustration">
+        </div>
+    </div>
+</body>
+</html>
