@@ -38,22 +38,57 @@ Para configurar e rodar o projeto localmente, siga os passos abaixo:
 * `[npm/yarn, Python, pip, etc.]`
 * `[PostgreSQL instalado e configurado]`
 
-### Instalação
-1.  Clone este repositório:
-    ```bash
-    git clone [git@github.com:tuleba1/Projeto-Avaliacao-EngSoftware.git]
-    cd nome-do-repositorio
-    ```
-2.  Instale as dependências do backend:
-    ```bash
-    cd backend
-    npm install # ou pip install -r requirements.txt
-    ```
-3.  Instale as dependências do frontend:
-    ```bash
-    cd ../frontend
-    npm install # ou yarn install
-    ```
+## ⚙️ Configuração e Instalação
+
+### 1. Clonar o Repositório
+
+```bash
+git clone <Link para o Repositório>
+cd Projeto-Avaliacao-EngSoftware
+
+### 🧱 2. Criar e Ativar o Ambiente Virtual
+
+#### 🔹 Windows:
+
+```bash
+python -m venv venv
+.\venv\Scripts\activate
+
+#### 🔸 macOS / Linux:
+
+python3 -m venv venv
+source venv/bin/activate
+
+📦 3. Instalar Dependências
+Instale o Django diretamente:
+
+pip install Django
+
+🗃️ 4. Configurar o Banco de Dados (EM BREVE)
+Aplique as migrações iniciais:
+
+python manage.py makemigrations auth_app
+python manage.py migrate
+
+👤 5. Criar um Superusuário (Opcional)
+Para acessar o painel administrativo do Django:
+
+python manage.py createsuperuser
+
+🚀 Como Rodar o Projeto
+Após tudo configurado, execute o servidor de desenvolvimento:
+
+python manage.py runserver
+
+Acesse o projeto no navegador em:
+
+Página Inicial: http://127.0.0.1:8000/
+
+Login: http://127.0.0.1:8000/login/
+
+Cadastro: http://127.0.0.1:8000/cadastro/
+
+Dashboard Aluno (temporário): http://127.0.0.1:8000/temp_dashboard/
 
 
 ## Contato
