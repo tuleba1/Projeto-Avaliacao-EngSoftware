@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required # <-- Esta linha
-from .forms import CustomAuthenticationForm, CustomUserCreationForm # <-- E esta linha
+from django.contrib.auth.decorators import login_required 
+from .forms import CustomAuthenticationForm, CustomUserCreationForm
+
 
 
 def login_view(request):
@@ -70,7 +71,7 @@ def logout_view(request):
 
 
 
-def temp_dashboard_view(request, role='aluno'): # <-- O NOME DA FUNÇÃO DEVE ESTAR EXATO
+def temp_dashboard_view(request, role='aluno'): 
     """
     *** TEMPORÁRIO: View para exibir o dashboard apenas para visualização/design. ***
     Não requer autenticação e pode ser acessada diretamente.
@@ -108,3 +109,93 @@ def home_page(request):
 
 def cadastro_view(request):
     return render(request, 'auth_app/cadastro.html')
+
+def questionario_materia_selecao(request):
+    """
+    View para a página de seleção de matéria do questionário.
+    Apresenta as opções de matéria disponíveis no sistema (AGORA COM DADOS ESTÁTICOS).
+    """
+    # Use uma lista estática de matérias para fins visuais/temporários
+    # Formato: ('valor_interno', 'Nome Exibido')
+    materias_estaticas = [
+        ('matematica', 'Matemática'),
+        ('portugues', 'Português'),
+        ('historia', 'História'),
+        ('geografia', 'Geografia'),
+        ('ciencias', 'Ciências'),
+        ('biologia', 'Biologia'),
+        ('fisica', 'Física'),
+        ('quimica', 'Química'),
+        ('redacao', 'Redação'),
+        ('ingles', 'Inglês'),
+        ('filosofia', 'Filosofia'), # Exemplo de adição de nova matéria só para visual
+        ('sociologia', 'Sociologia'), # Exemplo de adição de nova matéria só para visual
+    ]
+    
+    context = {
+        'materias': materias_estaticas, # Passa a lista estática para o template
+        # Você pode passar um objeto de usuário mockado se esta view for acessível sem login no modo dev
+        'user': type('UserMock', (object,), {'username': 'Aluno Teste', 'is_authenticated': True})()
+    }
+    # Certifique-se que o 'context' é passado corretamente (sem 'context=') e o caminho do template.
+    return render(request, 'questionario_materia_selecao.html', context)
+
+
+def relatorios_view(request):
+    """
+    View para a página de Relatórios (visualização com gráfico fictício).
+    """
+    # Dados de desempenho fictícios para o relatório
+    relatorio_disciplinas = [
+        {'nome': 'Matemática', 'media': 78, 'percentual_acertos': 78},
+        {'nome': 'Português', 'media': 65, 'percentual_acertos': 65},
+        {'nome': 'Física', 'media': 70, 'percentual_acertos': 70},
+        {'nome': 'Química', 'media': 82, 'percentual_acertos': 82},
+        {'nome': 'História', 'media': 88, 'percentual_acertos': 88},
+        {'nome': 'Geografia', 'media': 75, 'percentual_acertos': 75},
+        {'nome': 'Biologia', 'media': 60, 'percentual_acertos': 60},
+    ]
+
+    context = {
+        'user': type('UserMock', (object,), {'username': 'Aluno Teste', 'is_authenticated': True})(),
+        'relatorio_disciplinas': relatorio_disciplinas, # Passa os dados para o template
+        'periodo_relatorio': 'Janeiro - Junho 2024', # Exemplo de período
+        'media_geral_acertos': '74%', # Exemplo de média geral
+    }
+    return render(request, 'relatorios.html', context)
+
+
+def desempenho_view(request):
+    """
+    View para a página de Desempenho (visualização fictícia por enquanto).
+    Pode incluir dados de desempenho mockados para exibição.
+    """
+    desempenho_disciplinas = [
+        {'nome': 'Matemática', 'percentual': 85},
+        {'nome': 'Português', 'percentual': 70},
+        {'nome': 'Física', 'percentual': 60},
+        {'nome': 'Química', 'percentual': 75},
+        {'nome': 'História', 'percentual': 90},
+        {'nome': 'Geografia', 'percentual': 65},
+    ]
+
+    context = {
+        'user': type('UserMock', (object,), {'username': 'Aluno Teste', 'is_authenticated': True})(),
+        'desempenho_disciplinas': desempenho_disciplinas,
+        'nome_aluno': 'Nome Completo do Aluno Fictício',
+        'ano_ensino': '2º Ano do Ensino Médio',
+        'email_aluno': 'aluno.ficticio@email.com',
+        'matricula_aluno': '202301010101',
+        'rendimento_geral': {
+            'PP': '80%',
+            'PR': '75%',
+            'Maior PR': '90%',
+        },
+        'mes_consulta': 'Julho 2024',
+        'eventos_agenda': [
+            {'data': '10 JUL', 'disciplina': 'Matemática', 'assunto': 'Prova de Geometria'},
+            {'data': '15 JUL', 'disciplina': 'Português', 'assunto': 'Entrega de Redação'},
+            {'data': '20 JUL', 'disciplina': 'Física', 'assunto': 'Trabalho de Cinemática'},
+        ]
+    }
+    return render(request, 'desempenho_view.html', context)

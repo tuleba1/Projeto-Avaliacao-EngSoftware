@@ -3,15 +3,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
 
 :root {
-    --primary-text-color: #1A202C; /* Cor para títulos, labels */
-    --secondary-text-color: #6A7280; /* Cor para subtítulos, links secundários */
-    --accent-color: #4C51BF; /* Cor de destaque (azul escuro) */
-    --light-blue-accent: #7890EA; /* Azul mais claro para alguns ícones/elementos */
-    --dark-red-sidebar: #4A0201; /* Cor escura para a sidebar */
-    --sidebar-text-color: #E2E8F0; /* Cor do texto no sidebar */
-    --sidebar-active-bg: #800201; /* Cor de fundo para item ativo do menu */
+ --primary-text-color: #1A202C; 
+    --secondary-text-color: #6A7280; 
+    --accent-color: #4C51BF; 
+    --light-blue-accent: #7890EA;
+    
+    
+    --sidebar-bg-color: #1A202C; 
+    --sidebar-text-color: #E2E8F0; 
+    --sidebar-active-bg: #4C51BF; 
+    --sidebar-hover-bg: #2D3748; 
+
     --white: #FFFFFF;
-    --light-gray-bg: #F7FAFC; /* Fundo claro do conteúdo principal */
+    --light-gray-bg: #F7FAFC;
     --border-color: #EDF2F7;
     --shadow-color: rgba(0, 0, 0, 0.05);
 }
@@ -43,7 +47,7 @@ body {
 /* Sidebar (Menu Lateral) */
 .sidebar {
     width: 250px;
-    background-color: var(--dark-red-sidebar);
+    background-color: var(--sidebar-bg-color); /* Usando a nova variável de azul escuro */
     color: var(--sidebar-text-color);
     display: flex;
     flex-direction: column;
@@ -143,12 +147,14 @@ body {
 }
 
 .sidebar-nav li a:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: var(--sidebar-hover-bg); /* Azul um pouco mais claro para hover */
+    color: var(--white); /* Texto branco no hover */
 }
 
 .sidebar-nav li a.active {
-    background-color: var(--sidebar-active-bg);
+    background-color: var(--sidebar-active-bg-new); /* Cor de destaque azul para o item ativo */
     font-weight: 600;
+    color: var(--white); /* Texto branco no ativo */
 }
 
 /* Main Content (Conteúdo Principal) */
@@ -356,4 +362,317 @@ body {
     .feature-item {
         padding: 20px;
     }
+}
+
+/* BLOCKS DE CÓDIGO QUE VOCÊ COLOU AO FINAL, SOBRESCRITOS PELO CÓDIGO DO INÍCIO */
+/* Estes blocos foram os que causaram a confusão de estilos.
+   Eles serão substituídos pelas novas variáveis de cor da sidebar. */
+
+/* Ajustes para o dashboard-container */
+/* Remover ou ajustar esta regra se ela estiver definindo o background-color do container principal */
+.dashboard-container {
+    background-color: var(--white); /* Revertendo para branco, conforme o início do seu CSS */
+}
+
+/* Sidebar: A COR PRINCIPAL A SER MUDADA É AQUI */
+.sidebar {
+    width: 250px;
+    background-color: var(--sidebar-bg-color); /* Usando a nova variável de azul escuro */
+    color: var(--sidebar-text-color);
+    padding: 20px 0;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    top: 0;
+    height: 100vh;
+    overflow-y: auto; /
+
+.sidebar-header {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 40px;
+    padding: 0 20px;
+    
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.sidebar-header .logo-n, .sidebar-header .logo-a {
+    font-size: 2em;
+    font-weight: 800;
+    line-height: 1;
+    color: var(--white); /
+}
+.sidebar-header .logo-text {
+    font-size: 1.2em;
+    font-weight: 600;
+    margin-left: 5px;
+    color: var(--white); 
+}
+
+/* Sidebar Nav Links */
+.sidebar-nav ul {
+    list-style: none;
+    padding: 0;
+    width: 100%;
+}
+.sidebar-nav li {
+    margin-bottom: 10px;
+}
+.sidebar-nav a {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    color: var(--sidebar-text-color); /* Cor do texto dos links */
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s;
+    border-left: 5px solid transparent;
+}
+.sidebar-nav a i {
+    margin-right: 15px;
+    font-size: 1.1em;
+}
+.sidebar-nav a:hover {
+    background-color: var(--sidebar-hover-bg); 
+    color: var(--white); 
+}
+.sidebar-nav a.active {
+    background-color: var(--sidebar-active-bg-new); 
+    color: var(--white); 
+    border-left-color: var(--white); 
+    font-weight: 600;
+}
+
+
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--light-gray-bg); 
+    padding: 40px; 
+    overflow-y: auto;
+}
+
+.navbar {
+    background-color: var(--white);
+    padding: 20px 30px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    color: var(--primary-text-color); 
+    font-size: 0.95em;
+}
+.user-info i {
+    font-size: 1.5em;
+    margin-right: 10px;
+    color: var(--secondary-text-color);
+}
+.user-info .matricula {
+    margin-left: 20px;
+    color: var(--secondary-text-color);
+    font-size: 0.85em;
+}
+
+
+.content-area {
+    padding: 30px;
+    flex-grow: 1;
+    background-color: var(--white);
+    border-radius: 10px; 
+    box-shadow: 0 0 15px var(--shadow-color); 
+    margin-top: 20px; 
+}
+
+.content-area h1 {
+    color: var(--primary-text-color);
+    margin-bottom: 25px;
+    font-size: 2.2em;
+}
+
+/*(seção 'Apresentamos o Nivelando') */
+.dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.card {
+    background-color: var(--white);
+    border-radius: 10px;
+    box-shadow: 0 5px 20px var(--shadow-color);
+    padding: 25px;
+    text-align: center;
+    transition: transform 0.2s ease-in-out;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-icon {
+    font-size: 3.5em;
+    color: var(--accent-color);
+    margin-bottom: 15px;
+}
+
+.card h3 {
+    font-size: 1.4em;
+    color: var(--primary-text-color);
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 0.9em;
+    color: var(--secondary-text-color);
+    line-height: 1.6;
+}
+
+
+.materia-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+.materia-card {
+    background-color: var(--white);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px var(--shadow-color);
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    cursor: pointer;
+    text-decoration: none; 
+    color: var(--primary-text-color); 
+    font-weight: 600;
+}
+.materia-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+.materia-card i {
+    font-size: 3em;
+    margin-bottom: 15px;
+    color: var(--accent-color); 
+}
+.materia-card span {
+    display: block;
+    font-size: 1.1em;
+}
+
+
+.messages {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.messages li {
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-size: 0.9em;
+    border: 1px solid transparent;
+}
+.messages .success { background-color: #D1FAE5; color: #065F46; border-color: #A7F3D0; }
+.messages .error { background-color: #FEE2E2; color: #991B1B; border-color: #FCA5A5; }
+.messages .info { background-color: #DBEAFE; color: #1E40AF; border-color: #93C5FD; }
+.messages .warning { background-color: #FFFBEB; color: #92400E; border-color: #FCD34D; }
+
+/* Estilos para a página de Relatórios - garantindo fundo branco */
+.relatorios-container {
+    background-color: var(--white); /* Fundo branco para o container de relatórios */
+    border-radius: 8px;
+    box-shadow: 0 4px 15px var(--shadow-color);
+    padding: 30px;
+    margin-top: 20px;
+    color: var(--primary-text-color); /* Cor do texto dentro */
+}
+.relatorios-header h2 {
+    color: var(--primary-text-color);
+}
+.relatorios-header .periodo {
+    color: var(--secondary-text-color);
+}
+.barra-item .label {
+    color: var(--primary-text-color);
+}
+.relatorio-resumo {
+    background-color: var(--light-gray-bg); /* Fundo mais claro para o resumo */
+    color: var(--primary-text-color);
+}
+.relatorio-resumo span.destaque {
+    color: var(--accent-color);
+}
+
+/* Estilos para a página de Desempenho - garantindo fundo branco */
+.perfil-aluno-card,
+.desempenho-main-content,
+.calendar-section {
+    background-color: var(--white); /* Fundo branco para os cards de desempenho */
+    box-shadow: 0 4px 15px var(--shadow-color);
+    color: var(--primary-text-color);
+}
+.perfil-aluno-card h3,
+.desempenho-header h2,
+.calendar-header h3,
+.agenda-eventos h4 {
+    color: var(--primary-text-color);
+}
+.perfil-aluno-card p,
+.perfil-aluno-card .rendimento span,
+.disciplina-progresso h4,
+.calendar-grid .day-name,
+.agenda-event .details span {
+    color: var(--secondary-text-color);
+}
+.progress-bar {
+    background-color: var(--accent-color); /* Azul de destaque para barra de progresso */
+}
+.desempenho-actions button {
+    background-color: var(--accent-color);
+    color: var(--white);
+}
+.desempenho-actions button:hover {
+    background-color: var(--accent-color); /* Pode ser um tom mais escuro, ou usar uma variável */
+    filter: brightness(90%); /* Escurece um pouco no hover */
+}
+.desempenho-actions button.secondary {
+    background-color: var(--secondary-text-color);
+}
+.desempenho-actions button.secondary:hover {
+    filter: brightness(90%);
+}
+.calendar-grid .day-number.today {
+    background-color: var(--accent-color);
+    color: var(--white);
+}
+.agenda-event .date {
+    background-color: var(--light-gray-bg); /* Fundo claro para a data do evento */
+    color: var(--primary-text-color);
+}
+.agenda-event .details .disciplina {
+    color: var(--primary-text-color);
+}
+
+
+@media (max-width: 768px) {
+   
+    .sidebar-nav li a {
+        color: var(--sidebar-text-color); 
+    }
+    .sidebar-nav a.active {
+        border-bottom-color: var(--white); 
+    }
+}
 }

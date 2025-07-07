@@ -11,4 +11,7 @@ urlpatterns = [
     path('', views.home_page, name='home'),
     path('temp_dashboard/<str:role>/', views.temp_dashboard_view, name='temp_dashboard_view'),
     path('temp_dashboard/', views.temp_dashboard_view, {'role': 'aluno'}, name='temp_dashboard_default'),
+    path('questionario/selecao/', views.questionario_materia_selecao, name='questionario_materia_selecao'),
+    path('relatorios/', views.relatorios_view, name='relatorios_view'),
+    path('desempenho/', views.desempenho_view, name='desempenho_view'),
 ]
